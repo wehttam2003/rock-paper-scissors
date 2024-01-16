@@ -9,43 +9,69 @@ function getComputerChoice(){
 //  scissors beats paper
 //  paper beats rock
 
-function playRound(playerSelection, computerChoice){
+let score = 0;
+
+function playRound(){
+
+    let playerSelection = prompt("What do you choose?: ").toLocaleLowerCase();
+    let computerChoice = getComputerChoice();
+
      switch(playerSelection){
         case "rock":
             if (computerChoice==="rock"){
-                return 2;
+                console.log("tie");
             }
             else if (computerChoice==="paper"){
-                return 0;
+                console.log("lost");
             }
             else if (computerChoice==="scissors"){
-                return 1;
+                score +=1
+                console.log("win");
             }
             break;
 
         case "paper":
             if (computerChoice==="rock"){
-                return 1;
+                score +=1
+                console.log("win");
             }
             else if (computerChoice==="paper"){
-                return 2;
+                console.log("tie");
             }
             else if (computerChoice==="scissors"){
-                return 0;
+                console.log("lost");
             }
             break;
 
         case "scissors":
             if (computerChoice==="rock"){
-                return 0;
+                console.log("lost");
             }
             else if (computerChoice==="paper"){
-                return 1;
+                score +=1
+                console.log("win");
             }
             else if (computerChoice==="scissors"){
-                return 2;
+                console.log("tie");
             }
             break;
 
      }
+
+}
+
+
+function game(){
+    playRound();
+    playRound();
+    playRound();
+    playRound();
+    playRound();
+}
+
+game()
+if (score>=3){
+    console.log("you won best out of three, congrats")
+}else{
+    console.log("you did not win best out of three")
 }
