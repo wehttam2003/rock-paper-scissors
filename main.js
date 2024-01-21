@@ -1,77 +1,89 @@
-const choices = ["rock", "paper", "scissors"];
+
 function getComputerChoice(){
+    const choices = ["rock", "paper", "scissors"];
     const choice = Math.floor(Math.random() * 3);
     return choices[choice]
 }
-//GET player input
-//IMPLEMENT a function that handles the game
-//  rock beats scissors
-//  scissors beats paper
-//  paper beats rock
 
-let score = 0;
+let playerScore = 0;
+let computerScore = 0;
+let round = 0;
+let playerSelection;
 
-function playRound(){
 
-    let playerSelection = prompt("What do you choose?: ").toLocaleLowerCase();
+function playRound(playerSelection){
+
+    
     let computerChoice = getComputerChoice();
+    if (playerScore==5 | computerScore==5){
+        if (playerScore==5){
+            alert("YOU WON");
+        }else{
+            alert("YOU LOST")
+        }
+        optionButtons.forEach( (element) => element.removeEventListener("click", game))
+        return "end";
+    }
 
      switch(playerSelection){
         case "rock":
             if (computerChoice==="rock"){
-                console.log("tie");
+                return "tie";
             }
             else if (computerChoice==="paper"){
-                console.log("lost");
+                computerScore +=1;
+                return "lost";
+                
             }
             else if (computerChoice==="scissors"){
-                score +=1
-                console.log("win");
+                playerScore +=1;
+                return "win";
             }
-            break;
 
         case "paper":
             if (computerChoice==="rock"){
-                score +=1
-                console.log("win");
+                playerScore +=1;
+                return "win";
             }
             else if (computerChoice==="paper"){
-                console.log("tie");
+                return "tie";
             }
             else if (computerChoice==="scissors"){
-                console.log("lost");
+                computerScore +=1;
+                return "lost";
             }
-            break;
 
         case "scissors":
             if (computerChoice==="rock"){
-                console.log("lost");
+                computerScore +=1;
+                return "lost";
+                
             }
             else if (computerChoice==="paper"){
-                score +=1
-                console.log("win");
+                playerScore +=1;
+                return "win";
             }
             else if (computerChoice==="scissors"){
-                console.log("tie");
+                return "tie";
             }
-            break;
 
      }
 
 }
 
 
-function game(){
-    playRound();
-    playRound();
-    playRound();
-    playRound();
-    playRound();
-}
 
-game()
-if (score>=3){
-    console.log("you won best out of three, congrats")
-}else{
-    console.log("you did not win best out of three")
-}
+const optionButtons = document.querySelectorAll(".option");
+const outputPlayerScore = document.querySelector(".playerScore");
+const outputComputerScore = document.querySelector(".computerScore")
+const output = document.querySelector(".output")
+
+
+optionButtons.forEach((element) => {
+    element.addEventListener("click", function game(e){playerSelection=e.target.parentNode.classList[1]
+            console.log(playRound(playerSelection));
+            outputPlayerScore.textContent = `player score: ${playerScore}`;
+            outputComputerScore.textContent = `copmuter score: ${computerScore}`;
+    })
+    
+})
